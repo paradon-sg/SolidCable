@@ -10,14 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 1) do
-  create_table "solid_cable_messages", force: :cascade do |t|
-    t.binary "channel", limit: 1024, null: false
-    t.binary "payload", limit: 536870912, null: false
+ActiveRecord::Schema[8.0].define(version: 2025_01_20_070227) do
+  create_table "messages", force: :cascade do |t|
+    t.text "value"
+    t.integer "task_id", null: false
     t.datetime "created_at", null: false
-    t.integer "channel_hash", limit: 8, null: false
-    t.index ["channel"], name: "index_solid_cable_messages_on_channel"
-    t.index ["channel_hash"], name: "index_solid_cable_messages_on_channel_hash"
-    t.index ["created_at"], name: "index_solid_cable_messages_on_created_at"
+    t.datetime "updated_at", null: false
+    t.index ["task_id"], name: "index_messages_on_task_id"
   end
+
+  create_table "tasks", force: :cascade do |t|
+    t.string "title"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_foreign_key "messages", "tasks"
 end

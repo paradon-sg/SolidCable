@@ -1,0 +1,38 @@
+
+<div class="container">
+    <div class="card border-0 shadow mt-5">
+        <div class="card-body p-4">
+            <h1 class="text-center fw-bold">Task: <%= @task.title %></h1>
+        </div>
+    </div>
+    <div class="card border-0 shadow mt-5">
+        <div class="card-body p-4">
+            <div class="row">
+                <div class="col-12">
+                    <h3>Messages</h3>
+                </div>
+                
+                <div id="messages-list">
+                    <%= turbo_stream_from @task, "messages" %>
+
+                    <% @task.messages.each do |message| %>
+                        <div class="col-12 mb-3">
+                            <textarea class="form-control" disabled><%= message.value  %></textarea>
+                        </div>
+                    <% end %>
+                </div>
+
+                <div class="col-12">
+                    <%= form_with model: [@task, Message.new] do |f| %>
+                        <div class="mb-3">
+                            <%= f.text_area :value, class: "form-control" %>
+                            </div>
+                        <div class="mb-3">
+                            <%= f.submit 'Send', class: "btn btn-primary" %>
+                        </div>
+                    <% end %>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
