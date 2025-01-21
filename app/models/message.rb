@@ -7,9 +7,9 @@ class Message < ApplicationRecord
 
   def broadcast_message
     broadcast_append_to(
-      [ self.task, "messages" ],
+      [ self.task, "message" ],
       target: "messages-list",
-      partial: "messages/item",
+      partial: "messages/message",
       locals: { message: self }
     )
   end

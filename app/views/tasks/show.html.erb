@@ -12,9 +12,8 @@
                     <h3>Messages</h3>
                 </div>
                 
+                <%= turbo_stream_from @task, "message" %>
                 <div id="messages-list">
-                    <%= turbo_stream_from @task, "messages" %>
-
                     <% @task.messages.each do |message| %>
                         <div class="col-12 mb-3">
                             <textarea class="form-control" disabled><%= message.value  %></textarea>
